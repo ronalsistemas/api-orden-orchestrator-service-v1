@@ -1,3 +1,20 @@
 spring:
   application:
     name: api-orden-orchestrator-service-v1
+
+  devtools:
+    restart:
+      enabled: false
+
+server:
+  port: 50200
+  servlet:
+    context-path: /api/v1/orden-orchestrator
+
+
+http-clients:
+  internal:
+    api-orden-service-v1:
+      base-url: http://localhost:40011/api/v1/ordenes
+      timeout: 5s
+
