@@ -5,9 +5,9 @@ import java.util.List;
 
 public record CrearOrdenOrchestratorRequest(
         ClienteRequest cliente,
-        CuentaPago cuenta,
+        TarjetaRequest tarjeta,
         FarmaciaRequest farmacia,
-        List<OrdenItemRequest> listaOrden,
+        List<OrdenItemRequest> items,
         DireccionEntrega direccionEntrega,
         Repartidor repartidor,
         BigDecimal total

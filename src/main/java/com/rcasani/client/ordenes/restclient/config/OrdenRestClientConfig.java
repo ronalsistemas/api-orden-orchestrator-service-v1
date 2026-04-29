@@ -8,11 +8,6 @@ import org.springframework.web.client.RestClient;
 public class OrdenRestClientConfig {
 
     @Bean
-    public RestClient.Builder getRestClientBuilder() {
-        return RestClient.builder();
-    }
-
-    @Bean
     public RestClient ordenRestClient(RestClient.Builder restClientBuilder) {
         return restClientBuilder.clone().baseUrl("http://localhost:40011/api/v1").build();
     }

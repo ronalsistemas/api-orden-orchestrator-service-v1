@@ -1,4 +1,4 @@
-package com.rcasani.client.ordenes.restclient;
+package com.rcasani.client.ordenes.httpexchange;
 
 import com.rcasani.client.ordenes.OrdenServiceV1Client;
 import com.rcasani.client.ordenes.restclient.dto.ClienteRequest;
@@ -10,18 +10,17 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
 
 @Slf4j
 @Component
 @AllArgsConstructor
-@Profile("RestClient")
-public class OrdenServiceV1RestClient implements OrdenServiceV1Client {
+@Profile("HttpExchange")
+public class OrdenServiceV1HttpExchange implements OrdenServiceV1Client {
 
-    private final RestClient ordenRestClient;
+    private final OrdenServiceV1HttpExchangeClient ordenClient;
 
     public CrearOrdenResponse crearOrden(CrearOrdenOrchestratorRequest crearOrdenOrchestratorRequest) {
-        log.info("RestClient - Creando pedido para el cliente: {}", crearOrdenOrchestratorRequest.cliente().nombre());
+        log.info("HttpExchange - Creando pedido para el cliente: {}", crearOrdenOrchestratorRequest.cliente().nombre());
 
         CrearOrdenRequest request = new CrearOrdenRequest(
                 new ClienteRequest(crearOrdenOrchestratorRequest.cliente().id(), crearOrdenOrchestratorRequest.cliente().nombre()),
@@ -29,9 +28,6 @@ public class OrdenServiceV1RestClient implements OrdenServiceV1Client {
                 crearOrdenOrchestratorRequest.total()
         );
 
-        return ordenRestClient.post().uri("/ordenes")
-                .body(request)
-                .retrieve()
-                .body(CrearOrdenResponse.class);
+        return ordenClient.crear(request);
     }
 }
