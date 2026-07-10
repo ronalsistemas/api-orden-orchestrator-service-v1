@@ -1,9 +1,9 @@
 package com.rcasani.client.ordenes.httpexchange.config;
 
 import com.rcasani.client.ordenes.httpexchange.OrdenServiceV1HttpExchangeClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
@@ -12,10 +12,13 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class ExchangeHttpClientConfig {
 
     @Bean
-    public RestClient ordenServiceV1HttpExchangeRestClient(RestClient.Builder restClientBuilder) {
+    public RestClient ordenServiceV1HttpExchangeRestClient(
+            @Value("${http-clients.internal.api-orden-service-v1.base-url}")
+            String baseUrl,
+            RestClient.Builder restClientBuilder)  {
         return restClientBuilder
                 .clone()
-                .baseUrl("http://localhost:40011/api")
+                .baseUrl(baseUrl)
                 .build();
     }
 

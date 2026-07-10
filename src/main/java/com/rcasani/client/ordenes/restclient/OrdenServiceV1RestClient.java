@@ -29,7 +29,8 @@ public class OrdenServiceV1RestClient implements OrdenServiceV1Client {
                 crearOrdenOrchestratorRequest.total()
         );
 
-        return ordenRestClient.post().uri("/ordenes")
+        //return ordenRestClient.post().uri("/ordenes")
+        return ordenRestClient.post()
                 .body(request)
                 .retrieve()
                 .body(CrearOrdenResponse.class);
