@@ -14,7 +14,7 @@ public class WebClientConfig {
     }
 
     @Bean
-    public WebClient restaurantWebClient(
+    public WebClient farmaciaWebClient(
             @Value("${http-clients.internal.api-farmacia-service-v1.base-url}")
             String baseUrl,
             WebClient.Builder webClientBuilder) {
