@@ -1,6 +1,7 @@
 package com.rcasani.client.ordenes.httpexchange.config;
 
 import com.rcasani.client.ordenes.httpexchange.OrdenServiceV1HttpExchangeClient;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ public class ExchangeHttpClientConfig {
     public RestClient ordenServiceV1HttpExchangeRestClient(
             @Value("${http-clients.internal.api-orden-service-v1.base-url}")
             String baseUrl,
+            @Qualifier("loadBalancedRestClientBuilder") //Indicamos que use el cliente con LoadBalancer para resuelva por los nombres de servicio de eureka
             RestClient.Builder restClientBuilder)  {
         return restClientBuilder
                 .clone()

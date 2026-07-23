@@ -13,7 +13,7 @@ public class OrdenRestClientConfig {
     public RestClient ordenRestClient(
             @Value("${http-clients.internal.api-orden-service-v1.base-url}")
             String baseUrl,
-            @Qualifier("loadBalancedRestClientBuilder")
+            @Qualifier("loadBalancedRestClientBuilder") //Indicamos que use el cliente con LoadBalancer para resuelva por los nombres de servicio de eureka
             RestClient.Builder restClientBuilder) {
         return restClientBuilder.clone().baseUrl(baseUrl).build();
     }

@@ -9,12 +9,14 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class OrdenRestClientBaseConfig {
 
+    //Usamos @LoadBalanced para que esta RestClient.Builder pueda resolver nombres de servicios registrados en Eureka
     @Bean("loadBalancedRestClientBuilder")
     @LoadBalanced
     public RestClient.Builder restClientBuilder() {
         return RestClient.builder();
     }
 
+    //Usamos @Primary para que esta sea la que se inyecte por defecto al cliente de Eureka
     @Primary
     @Bean
     public RestClient.Builder cleanRestClientBuilder() {
