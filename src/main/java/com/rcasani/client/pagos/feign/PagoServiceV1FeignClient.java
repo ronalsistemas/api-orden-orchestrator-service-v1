@@ -1,4 +1,4 @@
-package com.rcasani.client.pagos;
+package com.rcasani.client.pagos.feign;
 
 import com.rcasani.client.pagos.dto.CobroRequest;
 import com.rcasani.client.pagos.dto.ConsultarSaldoRequest;
