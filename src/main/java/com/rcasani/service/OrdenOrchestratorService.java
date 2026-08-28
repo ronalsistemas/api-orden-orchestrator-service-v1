@@ -6,6 +6,8 @@ import com.rcasani.controller.dto.CrearOrdenOrchestratorResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class OrdenOrchestratorService {
@@ -13,7 +15,7 @@ public class OrdenOrchestratorService {
     private final OrdenService ordenService;
     private final PagoService pagoService;
     private final FarmaciaService farmaciaService;
-    //private final EntregaService entregaService;
+    private final EntregaService entregaService;
 
     public CrearOrdenOrchestratorResponse crearOrden(CrearOrdenOrchestratorRequest request) {
 
@@ -25,7 +27,17 @@ public class OrdenOrchestratorService {
 
         farmaciaService.reservaFarmacia(ordenCreado.id(), request);
 
+        entregaService.asignarConductor(ordenCreado.id(), request); //Se agregó con el servicio delivery
+
         return new CrearOrdenOrchestratorResponse(ordenCreado.id());
 
+    }
+
+    public void iniciarEntrega(UUID ordenId) {
+        entregaService.iniciarEntrega(ordenId);
+    }
+
+    public void entregaCompleta(UUID ordenId) {
+        entregaService.entregaCompleta(ordenId);
     }
 }
